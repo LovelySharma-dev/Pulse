@@ -1,11 +1,11 @@
+import dotenv from "dotenv/config";
 import express from "express";
-import dotenv from "dotenv";
 import path from "path";
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 
-dotenv.config();
+// dotenv.config();
 const app = express();
 const __dirname = path.resolve();
 

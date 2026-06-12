@@ -1,13 +1,14 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
+import { sendWelcomeEmail } from "../emails/emailHandlers.js";
 
 export const signup = async (req, res) => {
   let { fullName, email, password } = req.body;
 
   try {
     if (fullName) fullName = fullName.trim();
-    if (email) email = email.trim().toLowerCase;
+    if (email) email = email.trim().toLowerCase();
     if (password) password = password.trim();
     if (!fullName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -47,9 +48,17 @@ export const signup = async (req, res) => {
         profilePic: newUser.profilePic,
       });
 
-      //TODO -   send welcome Email
+      // send welcome Email
+
       try {
-      } catch (error) {}
+        await sendWelcomeEmail(
+          savedUser.email,
+          savedUser.fullName,
+          process.env.CLIENT_URL,
+        );
+      } catch (error) {
+        console.log("Failed to send welcome email", error);
+      }
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }

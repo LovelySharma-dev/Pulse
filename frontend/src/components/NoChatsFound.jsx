@@ -2,6 +2,7 @@ import React from 'react'
 import { MessageCircleIcon } from "lucide-react";
 
 const NoChatsFound = () => {
+  // console.log("NoChatsFound mounted");
   return (
     <div className='flex flex-col items-center justify-center py-10 text-center space-y-4'>
         <div className="w-16 h-16 bg-violet-500/10 rounded-full flex items-center justify-center">

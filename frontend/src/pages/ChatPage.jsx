@@ -1,17 +1,19 @@
 import React from 'react'
 import BorderAnimatedContainer from '../components/BorderAnimatedContainer'
 import { useAuthStore } from '../store/useAuthStore'
-import ProfileHeader from './ProfileHeader'
+import ProfileHeader from '../components/ProfileHeader.jsx'
 import ActiveTabSwitch from '../components/ActiveTabSwitch'
 import ChatsList from '../components/ChatsList'
 import ContactList from '../components/ContactList'
 import ChatContainer from '../components/ChatContainer'
 import NoConversationPlaceholder from '../components/NoConversationPlaceholder'
+import { useChatStore } from '../store/useChatStore.js'
 
 const ChatPage = () => {
-  const {activeTab, selectedUser} = useAuthStore()
+
+  const {activeTab, selectedUser} = useChatStore()
   return (
-    <div className="relative w-full max-w-6xl h-[800px]">
+    <div className="relative w-full max-w-6xl h-[600px]">
      <BorderAnimatedContainer>
       {/* Left side */}
 

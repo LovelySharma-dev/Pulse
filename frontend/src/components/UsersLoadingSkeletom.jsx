@@ -1,6 +1,7 @@
 import React from 'react'
 
 const UsersLoadingSkeletom = () => {
+    
   return (
     <div className='space-y-2'>
         {[1,2,3].map((item) => (

@@ -32,13 +32,13 @@ const ProfileHeader = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           {/* AVATAR */}
-          <div >
+          <div className="avatar avatar-online">
             <button
               className="size-14 rounded-full overflow-hidden relative group"
               onClick={() => fileInputRef.current.click()}
             >
               <img
-                src={selectedImg || authUser.profilePic || "./user.png"}
+                src={selectedImg || authUser.profilePic || "/user.png"}
                 alt="User image"
                 className="size-full object-cover"
               />
@@ -77,7 +77,7 @@ const ProfileHeader = () => {
             }}>
 
                 {
-                    isSoundEnabled? (<Volume2Icon className="size-5" />) : (<Volume2Icon className="size-5" />)
+                    isSoundEnabled? (<Volume2Icon className="size-5" />) : (<VolumeOffIcon className="size-5" />)
                 }
             </button>
         </div>

@@ -2,6 +2,7 @@
 @plugin "daisyui";
 @theme {
   --animate-border: border 4s linear infinite;
+  
 }
 
 @keyframes border {

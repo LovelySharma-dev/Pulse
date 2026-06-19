@@ -1,35 +1,45 @@
-import React, { useEffect } from 'react'
-import { useChatStore } from '../store/useChatStore'
-import { useAuthStore } from '../store/useAuthStore';
-import UsersLoadingSkeletom from './UsersLoadingSkeletom';
+import React, { useEffect } from "react";
+import { useChatStore } from "../store/useChatStore";
+import { useAuthStore } from "../store/useAuthStore";
+import UsersLoadingSkeletom from "./UsersLoadingSkeletom";
 
 const ContactList = () => {
-    const {getAllContacts, allContacts, setSelectedUser, isUsersLoading} = useChatStore();
+  const { getAllContacts, allContacts, setSelectedUser, isUsersLoading } =
+    useChatStore();
 
-    const {onlineUsers} = useAuthStore()
+  const { onlineUsers } = useAuthStore();
 
-    useEffect(() => {
-        getAllContacts()
-    }, [getAllContacts])
+  useEffect(() => {
+    getAllContacts();
+  }, [getAllContacts]);
 
-    if(isUsersLoading) return <UsersLoadingSkeletom/>
+  if (isUsersLoading) return <UsersLoadingSkeletom />;
 
   return (
     <>
-    {allContacts.map((contact) => {
-        <div key={contact._id} className='bg-violet-500/10 p-4 rounded-lg cursor-pointer hover:bg-violet-500/20 transition-colors' onClick={() => setSelectedUser(contact)}>
-            <div className="flex items-center gap-3">
-                <div className={`avatar ${onlineUsers.includes(contact._id) ? "online" : "offline"}`} >
-                    <div className="size-12 rounded-full">
-                        <img src={contact.profilePic || "./user.png"}  />
-                    </div>
-                </div>
-                <h4 className='text-zinc-200 font-medium'>{contact.fullName}</h4>
+      {allContacts.map((contact) => (
+        <div
+          key={contact._id}
+          className="bg-violet-500/10 p-4 rounded-lg cursor-pointer hover:bg-violet-500/20 transition-colors"
+          onClick={() => setSelectedUser(contact)}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className={`avatar ${
+                onlineUsers.includes(contact._id) ? "online" : ""
+              }`}
+            >
+              <div className="size-12 rounded-full">
+                <img src={contact.profilePic || "/user.png"} />
+              </div>
             </div>
-        </div>
-    })}
-    </>
-  )
-}
 
-export default ContactList
+            <h4 className="text-zinc-200 font-medium">{contact.fullName}</h4>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default ContactList;

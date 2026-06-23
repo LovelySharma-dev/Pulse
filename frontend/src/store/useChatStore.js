@@ -60,21 +60,33 @@ export const useChatStore = create((set, get) => ({
     }
   },
 
-  // sendMessage: async (messageData) => {
-  //   const {selectedUser, messages} = get();
-  //   const {authUser} = useAuthStore.getState();
+  sendMessage: async (messageData) => {
+    const { selectedUser, messages } = get();
+    const { authUser } = useAuthStore.getState();
 
-  //   const tempId = `temp-${Date.now()}`
+    const tempId = `temp-${Date.now()}`;
 
-  //   const optimisticMessage = {
-  //     _id: tempId,
-  //     senderId: authUser._id
-  //     receiverId: selectedUser._id,
-  //     text: messageData.text,
-  //     image: messageData.image,
-  //     createdAt: new Date().toISOString()
-  //     isOptimistic: true //flag to identify optimistic messages
-  //   }
+    const optimisticMessage = {
+      _id: tempId,
+      senderId: authUser._id,
+      receiverId: selectedUser._id,
+      text: messageData.text,
+      image: messageData.image,
+      createdAt: new Date().toISOString(),
+      isOptimistic: true, //flag to identify optimistic messages
+    };
+    set({ messages: [...messages, optimisticMessage] });
 
-  // },
+    try {
+      const res = await axiosInstance.post(
+        `/message/send/${selectedUser._id}`,
+        messageData,
+      );
+
+      set({ messages: messages.concat(res.data) });
+    } catch (error) {
+      set({ messages: messages });
+      toast.error(error.response?.data?.message || "Something went wrong");
+    }
+  },
 }));

@@ -9,10 +9,18 @@ import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
 const ChatContainer = () => {
   const { selectedUser, getMessagesByUserId, messages, isMessagesLoading } = useChatStore();
   const { authUser } = useAuthStore();
+  const messsageEndRef = useRef(null)
+  
   useEffect(() => {
     getMessagesByUserId(selectedUser._id);
   }, [selectedUser, getMessagesByUserId]);
 
+  useEffect(() => {
+    if(messsageEndRef.current) {
+      messsageEndRef.current.scrollIntoView({behavior : "smooth"})
+    }
+  }, [messages])
+  
   return (
     <>
       <ChatHeader />
@@ -48,12 +56,12 @@ const ChatContainer = () => {
                 </div>
               </div>
             ))}
-            <div/>
+            <div ref={messsageEndRef}/>
           </div>
         ) :  isMessagesLoading ? (
           <MessagesLoadingSkeleton />
         ) : (
-          <NoChatHistoryPlaceholder name={selectedUser.fullName} />
+          <NoChatHistoryPlaceholde name={selectedUser.fullName} />
         )}
       </div>
       <MessageInput />

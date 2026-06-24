@@ -30,7 +30,7 @@ const ChatsList = () => {
             <div className="flex items-center gap-4">
               <div
                 className={`avatar ${
-                  onlineUsers.includes(chat._id) ? "online" : "offline"
+                  onlineUsers.includes(chat._id) ? "avatar-online" : "avatar-offline"
                 }`}
               >
                 <div className="w-12 rounded-full">

@@ -24,7 +24,7 @@ const isOnline = onlineUsers.includes(selectedUser._id);
    border-zinc-700/50 max-h-[84px] px-6 flex-1"
     >
       <div className="flex items-center space-x-3">
-        <div className={"avatar avatar-online"}>
+        <div className={`avatar ${isOnline ? "avatar-online" : "avatar-offline"}` }>
           <div className="w-12 rounded-full">
             <img src={selectedUser.profilePic || "/user.png"} alt="" />
           </div>

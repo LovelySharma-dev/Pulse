@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Message from "../models/Message.js";
 import cloudinary from "../lib/cloudinary.js";
+import { io, getReceiverSocketId } from "../lib/socket.js";
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -69,14 +70,24 @@ export const sendMessage = async (req, res) => {
       image: imageUrl,
     });
 
-    // todo: Send message in real-time if user is online - socket.io
     await newMessage.save();
+    // todo: Send message in real-time if user is online - socket.io
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+
+    console.log("Receiver socket:", receiverSocketId);
+    if (receiverSocketId) {
+      // console.log("Emitting newMessage");
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in sendMessage", error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 export const getChatPatners = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;

@@ -21,9 +21,9 @@ export function getReceiverSocketId(userId) {
 const userSocketMap = {}; //{userId:socketId}
 
 io.on("connection", (socket) => {
-  console.log("A user disconnected", socket.user.fullName);
+  console.log("A user connected", socket.user.fullName);
 
-  const userId = socket.userId;
+  const userId = socket.user._id.toString();
   userSocketMap[userId] = socket.id;
 
   //   send to all connected clients
